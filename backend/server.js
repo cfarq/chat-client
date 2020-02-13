@@ -87,7 +87,8 @@ wsServer.on('request', function(request) {
           time: (new Date()).getTime(),
           text: htmlEntities(message.utf8Data),
           author: userName,
-          color: userColor
+          color: userColor,
+          edited: false
         };
         history.push(obj);
         history = history.slice(-100);
@@ -108,7 +109,6 @@ wsServer.on('request', function(request) {
         + connection.remoteAddress + " disconnected.");
       // remove user from the list of connected clients
       clients.splice(index, 1);
-      // push back user's color to be reused by another user
     }
   });
 
