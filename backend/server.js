@@ -58,7 +58,7 @@ wsServer.on('request', function(request) {
   // we need to know client index to remove them on 'close' event
   var index = clients.push(connection) - 1;
   var userName = false;
-  var userColor = false;
+  var id = 0
 
   console.log((new Date()) + ' Connection accepted.');
 
@@ -74,9 +74,7 @@ wsServer.on('request', function(request) {
         // remember user name
         userName = htmlEntities(message.utf8Data);
 
-        connection.sendUTF(JSON.stringify({ type:'color', data: userColor }));
-        console.log((new Date()) + ' User is known as: ' + userName
-          + ' with ' + userColor + ' color.');
+        console.log((new Date()) + ' User is known as: ' + userName);
 
       } else { // log and broadcast the message
         console.log((new Date()) + ' Received Message from '
@@ -85,9 +83,9 @@ wsServer.on('request', function(request) {
         // we want to keep history of all sent messages
         var obj = {
           time: (new Date()).getTime(),
+          id: id++,
           text: htmlEntities(message.utf8Data),
           author: userName,
-          color: userColor,
           edited: false
         };
         history.push(obj);
@@ -104,7 +102,7 @@ wsServer.on('request', function(request) {
 
   // user disconnected
   connection.on('close', function(connection) {
-    if (userName !== false && userColor !== false) {
+    if (userName !== false) {
       console.log((new Date()) + " Peer "
         + connection.remoteAddress + " disconnected.");
       // remove user from the list of connected clients

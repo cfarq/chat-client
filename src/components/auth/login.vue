@@ -14,15 +14,20 @@
         userName: ''
       }
     },
+
     computed: {
+      /**
+       * Flag to disable the send button if userName is empty
+       */
       isDisabled () {
         return this.userName.length
       }
     },
-    mounted () {
 
-    },
     methods: {
+      /**
+       * First message sent by the user adds their username as a client
+       */
       addUser () {
         this.$socket.sendObj(this.userName)
       }
