@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <input v-model="userName" type="text">
-    <button @click="addUser" :disabled="!isDisabled">Send</button>
+    <button @click="addUser" :disabled="!isDisabled">Proceed</button>
   </div>
 </template>
 

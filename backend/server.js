@@ -80,9 +80,11 @@ wsServer.on('request', function(request) {
         console.log((new Date()) + ' Received Message from '
           + userName + ': ' + message.utf8Data);
 
+        var date = new Date()
+
         // we want to keep history of all sent messages
         var obj = {
-          time: (new Date()).getTime(),
+          time: `${date.getHours()}:${date.getMinutes()}`,
           id: id++,
           text: htmlEntities(message.utf8Data),
           author: userName,

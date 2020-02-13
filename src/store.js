@@ -17,14 +17,24 @@ export default new Vuex.Store({
     usersList: []
   },
   mutations: {
-    // set user
-
     // send message
 
     // delete message
 
     // edit message
 
+    /**
+     * Updates "user" state on commit
+     *
+     * @param state
+     * @param payload
+     * @constructor
+     */
+    SET_USER (state, payload) {
+      state.user = payload
+    },
+
+    // Mutations required by the websocket-vue bridge plugin
     SOCKET_ONOPEN (state, event)  {
       Vue.prototype.$socket = event.currentTarget
       state.socket.isConnected = true

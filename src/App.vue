@@ -1,61 +1,57 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <div id="app" class="shell">
+    <div class="shell__title">
+      Chat Client
+    </div>
+    <div id="nav" class="shell__navigation">
+      <router-link to="/users">Participants</router-link>
       <router-link to="/chat">Chat</router-link>
-      <router-link to="/users">Users</router-link>
     </div>
     <router-view/>
   </div>
 </template>
 
-<script>
-
-  // const SERVER_LOCATION = 'ws://127.0.0.1:1337'
-  //
-  // window.webSocket = window.WebSocket || window.MozWebSocket
-  //
-  // let connection = new WebSocket(SERVER_LOCATION)
-
-  // connection.onopen = () => {
-  //   console.log('connection ready')
-  // }
-  //
-  // connection.onerror = (error) => {
-  //   console.log(error, 'on error')
-  // }
-  //
-  // connection.onmessage = (message) => {
-  //   try {
-  //     let json = JSON.parse(message.data)
-  //   } catch (e) {
-  //     console.log('error', message.data)
-  //     return
-  //   }
-  //   // dispatch action to get messages
-  // }
-
-
-  export default {
-    data () {
-      return {
-
-      }
-    },
-    beforeRouteEnter (to, from, next) {
-      next()
-    },
-    methods: {
-
-    }
-  }
-</script>
-
 <style lang="scss">
-#app {
+
+$color-background:    #ebebeb !default;
+$color-text:          #354052 !default;
+
+$spacer:              1rem !default
+$spacer-y:            1rem !default
+$spacer-x:            1rem !default
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+// using the BEM standard to keep our styling from leaking
+// to unwanted parts of the app.
+.shell {
+  background-color: $color-background;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $color-text;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px; // base size for our rem values
+
+  &__title {
+    padding-top: $spacer-y;
+    padding-bottom: $spacer-y;
+  }
+
+  &__navigation {
+    display: flex;
+    justify-content: space-around;
+
+    a {
+      flex: 1 1 auto;
+      padding: $spacer;
+    }
+  }
 }
 </style>
