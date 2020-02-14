@@ -62,6 +62,8 @@ wsServer.on('request', function(request) {
 
   console.log((new Date()) + ' Connection accepted.');
 
+
+
   // send back chat history
   if (history.length > 0) {
     connection.sendUTF(JSON.stringify( { type: 'history', data: history} ));
@@ -72,7 +74,7 @@ wsServer.on('request', function(request) {
     if (message.type === 'utf8') { // accept only text
       if (userName === false) { // first message sent by user is their name
         // remember user name
-        userName = htmlEntities(message.utf8Data);
+        userName = message.utf8Data;
 
         console.log((new Date()) + ' User is known as: ' + userName);
 
@@ -86,7 +88,7 @@ wsServer.on('request', function(request) {
         var obj = {
           time: `${date.getHours()}:${date.getMinutes()}`,
           id: id++,
-          text: htmlEntities(message.utf8Data),
+          text: message.utf8Data,
           author: userName,
           edited: false
         };
