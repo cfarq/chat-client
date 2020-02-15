@@ -1,7 +1,12 @@
 <template>
   <div class="chat">
     <div class="chat__message-list">
-      <Message v-for="message in socketMessages" :msg="message.data.text" :id="message.data.id" />
+      <Message
+        v-for="message in socketMessages"
+        :msg="message.data.text"
+        :id="message.data.id"
+        :edited="message.data.edited"
+      />
     </div>
     <div class="chat__editor">
       <input v-model="currentMessage" type="text">
@@ -34,6 +39,9 @@
     methods: {
       submitMessage () {
         this.$socket.sendObj(this.currentMessage)
+      },
+      editMessage (id) {
+        // TODO edit message logic
       }
     }
   }
