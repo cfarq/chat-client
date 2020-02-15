@@ -46,6 +46,13 @@ var wsServer = new webSocketServer({
   httpServer: server
 });
 
+
+const getUniqueId = () => {
+  const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+
+  return s4() + s4() + '-' + s4()
+}
+
 // This callback function is called every time someone
 // tries to connect to the WebSocket server
 wsServer.on('request', function(request) {
@@ -61,7 +68,6 @@ wsServer.on('request', function(request) {
   var id = 0
 
   console.log((new Date()) + ' Connection accepted.');
-
 
 
   // send back chat history
@@ -97,9 +103,12 @@ wsServer.on('request', function(request) {
 
         // broadcast message to all connected clients
         var json = JSON.stringify({ type:'message', data: obj });
-        for (var i=0; i < clients.length; i++) {
-          clients[i].sendUTF(json);
-        }
+        // for (var i=0; i < clients.length; i++) {
+        //   clients[i].send(JSON.stringify(history));
+        // }
+        clients.forEach(client => {
+          client.send(JSON.stringify({ type: 'message', data: obj }))
+        })
       }
     }
   });

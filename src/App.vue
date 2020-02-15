@@ -53,6 +53,7 @@ button {
 button {
   padding: 0.5rem;
   border: 0;
+  border-radius: 4px;
 
   &:disabled {
     cursor: not-allowed;

@@ -16,6 +16,11 @@ export default new Vuex.Store({
     messages: [],
     usersList: []
   },
+  getters: {
+    socketMessages (state) {
+      return state.messages
+    }
+  },
   mutations: {
     // send message
 
@@ -41,13 +46,16 @@ export default new Vuex.Store({
     },
     SOCKET_ONCLOSE (state, event)  {
       state.socket.isConnected = false
+      // resets the view back to the user name view if this is fired
+      this.$router.push('/')
     },
     SOCKET_ONERROR (state, event)  {
       console.error(state, event)
     },
     // default handler called for all methods
     SOCKET_ONMESSAGE (state, message)  {
-      state.socket.message = message
+      // state.socket.message = message
+      state.messages.push(message)
     },
     // mutations for reconnect methods
     SOCKET_RECONNECT(state, count) {
